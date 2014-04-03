@@ -9,9 +9,9 @@ Syndom ist eine JavaScript-Bibliothek für grundlegende DOM-Funktionen.
 - weniger als **600 Byte** gzipped
 - **selektieren** von Elementen
 - **Event-Bindung**
-- **manipulatuion von CSS-Klassen**
+- **Manipulatuion von CSS-Klassen**
 
-Inspiriert von [salt.js]("https://github.com/james2doyle/saltjs") was die Art der Selektierung angeht wurde die *syndom*-Variante abgewandelt, um bereits selektierte Elemente zu cachen und der Möglichkeit einen Kontext für ein Element anzugeben.
+Inspiriert von [salt.js](https://github.com/james2doyle/saltjs) was die Art der Selektierung angeht wurde die *syndom*-Variante abgewandelt, um bereits selektierte Elemente zu cachen und der Möglichkeit einen Kontext für ein Element anzugeben.
 
 ### Browser Support
 - Chrome
@@ -20,7 +20,7 @@ Inspiriert von [salt.js]("https://github.com/james2doyle/saltjs") was die Art de
 - Safari
 - IE9+ (mit IE-Support-Datei auch IE6+)
 
-## Anwednung
+## Anwendung
 Um *syndom* zu nutzen wird das Script am Ende der Seite eingebunden:
 
 ```html
@@ -80,7 +80,7 @@ $('element');
 ```
 
 ### Mit Kontext
-Elemente die selektiert werden sollen können sich in einem Kontext befinden. Der standardkontext ist *document*. Ein Beispielkontext (in CSS Schreibweiße) könnte ```#wrapper .rows``` sein. Der Kontext ist immer ein **bereits selektiertes Element**:
+Elemente die selektiert werden sollen können sich in einem Kontext befinden. Der Standardkontext ist *document*. Ein Beispielkontext (in CSS Schreibweiße) könnte ```#wrapper .rows``` sein. Der Kontext ist immer ein **bereits selektiertes Element**:
 
 ```javascript
 // Kontext wählen
@@ -231,7 +231,7 @@ $.toggleClass(elList, [
 ```
 
 ## Event-Bindung
-Mit *syndom* können **Cross-Browser Events** per ```on()``` Methode vergeben werden, mit flexibler vergabe der Events an Elemente. Dabei wird das oder die Elemente übergeben, das Event und eine Callback-Funktion die das Event-Objekt übergeben bekommt. Zum binden eines klick-Events:
+Mit *syndom* können **Cross-Browser Events** per ```on()``` Methode vergeben werden, mit flexibler Vergabe der Events an Elemente. Dabei wird das oder die Elemente übergeben, das Event und eine Callback-Funktion die das Event-Objekt übergeben bekommt. Zum binden eines klick-Events:
 
 ```javascript
 var el = $('#click-me');
@@ -270,3 +270,4 @@ $.on(inputs, ['focus', 'blur'], function (event) {
     $.toggleClass(event.target, 'focused');
 });
 ```
+
