@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>syndom - Demo</title>
+	<!--[if lte IE 6]>
+        <script type="text/javascript" src="src/versions/v0.0.1/iesupport.js"></script>
+    <![endif]-->
+	<style>
+	body {
+		background: #f2f2f2;
+	}
+	.box {
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid #333;
+	}
+	.color1 { background: #FFAD57; }
+	.color2 { background: #FF625C; }
+	.color3 { background: #AAFF43; }
+	.color4 { background: #9E9EFF; }
+	.color5 { background: grey; }
+	.mark { background: #FFE800; }
+	.mark2 { outline: 2px solid red; }
+	</style>
+</head>
+<body>
+
+<div id="wrapper" class="box color1">
+	<div class="box foo color2"></div>
+	<div class="box foo color3"></div>
+	<div class="box foo color4"></div>
+</div>
+
+<div id="wrapper2" class="box2 color1">
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<div class="box4"></div>
+</div>
+
+<script type="text/javascript" src="syndom.js"></script>
+<script type="text/javascript" src="src/main.js"></script>
+</body>
+</html>
