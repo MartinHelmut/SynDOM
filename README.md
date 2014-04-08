@@ -6,7 +6,7 @@ syndom v0.0.2
 Syndom ist eine JavaScript-Bibliothek für grundlegende DOM-Funktionen.
 
 ### Features
-- weniger als **600 Byte** gzipped
+- nur **654 Bytes** gzipped
 - **selektieren** von Elementen
 - **Event-Bindung**
 - **Manipulatuion von CSS-Klassen**
