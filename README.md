@@ -1,4 +1,4 @@
-syndom v0.0.1
+syndom v0.0.2
 =============
 * * *
 
@@ -53,7 +53,7 @@ Für **IE8 und kleiner** Support kann die support-Datei in den Kopf der Seite al
 ```
 
 ## Elemente selektieren
-Elemente werden intern mit den JavaScript-Funktionen ```getElementById()```, ```getElementsByClassName()```, ```getElementsByName()``` und ```getElementsByTagName()``` selektiert. Es werden immer **native JavaScript-Objekte wiedergegeben**.
+Elemente werden intern mit den JavaScript-Funktionen ```getElementById()```, ```getElementsByClassName()```, ```getElementsByName()``` und ```getElementsByTagName()``` selektiert. Es werden immer **native JavaScript-Objekte wiedergegeben**. Diese werden zudem von *syndom* **gecached** so das nicht immer wieder das DOM durchlaufen werden muss.
 
 ### ByID
 
@@ -230,6 +230,54 @@ $.toggleClass(elList, [
 ]);
 ```
 
+## DOM-Operationen
+### Attribute bearbeiten
+Mit *syndom* können Attribute abgefragt und gesetzt werden, dazu wird die Methode ```attr()``` genutzt aus dem syndom-Objekt. Zum abfragen eines Attributes **eines** Elementes wird nur der Attributname übergeben:
+
+```javascript
+var el = $('#myElement');
+var value = $.attr(el, 'attrName');
+```
+
+Zum **setzen eines Attributes** wird ein zweiter Wert, der Inhalt des Attributes übergeben:
+
+```javascript
+var el = $('#myElement');
+$.attr(el, 'attrName', 'value');
+```
+
+Zum setzen von Attributen werden *Strings*, *Zahlen* und *boolesche Werte* aktzeptiert:
+
+```javascript
+var el = $('#myElement');
+$.attr(el, 'attrName', 'value'); // => "value"
+$.attr(el, 'attrName', true);    // => "true"
+$.attr(el, 'attrName', 42);      // => "42"
+```
+
+### Elemente löschen
+Mit *syndom* können ebenfalls Elemente gelöscht werden. Hierzu gibt es die ```remove()``` Methode:
+
+```javascript
+var el = $('#myElement');
+$.remove(el);
+```
+
+Der **Rückgabewert** ist das gelöschte Element. Es können ebenfalls Node-Listen und Arrays mit zu löschenden Elementen übergeben werden:
+
+```javascript
+var elList = [
+        $('#myElement'),
+        $('input')
+    ],
+    el = $('.elements');
+
+$.remove(elList);
+$.remove(el);
+```
+
+Der **Rückgabewert** ist in dem Fall das letzte gelöschte Element.
+
 ## Event-Bindung
 Mit *syndom* können **Cross-Browser Events** per ```on()``` Methode vergeben werden, mit flexibler Vergabe der Events an Elemente. Dabei wird das oder die Elemente übergeben, das Event und eine Callback-Funktion die das Event-Objekt übergeben bekommt. Zum binden eines klick-Events:
 
@@ -270,4 +318,3 @@ $.on(inputs, ['focus', 'blur'], function (event) {
     $.toggleClass(event.target, 'focused');
 });
 ```
-

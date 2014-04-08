@@ -3,7 +3,7 @@
 /**
  * Synlight DOM module
  *
- * @version 0.0.1
+ * @version 0.0.2
  * @licence Apache Licence 2.0
  * @author  Martin Helmut Fieber <info@martin-fieber.de>
  * 
@@ -37,7 +37,7 @@ window.$ = (function (window, document) {
     /**
      * Simple Array iteration for mixed types objects
      * 
-     * @param {Mixed}   obj  Any mixed object type
+     * @param {Object}   obj  Any mixed object type
      * @param {Function} fn  Function to execute on array entry
      */
     function _arrayIterator(obj, fn) {
@@ -59,14 +59,17 @@ window.$ = (function (window, document) {
     }
 
     /**
-     * Query selector engine
-     * 
-     * @param  {String}           selector Selector string
-     * @param  {Element}          context  Context search for elements
-     * @return {Element|NodeList}          DOM Element or NodeList
+     * @type {Function} Query selector engine
      */
     var syndom = (function () {
             var _cache = [];
+            /**
+             * Query selector engine
+             *
+             * @param  {String}           selector Selector string
+             * @param  {Element|Node}     context  Context search for elements
+             * @return {Element|NodeList}          DOM Element or NodeList
+             */
             return function (selector, context) {
                 var match = {
                         '#': 'ById',
@@ -91,15 +94,18 @@ window.$ = (function (window, document) {
         }()),
 
         /**
-         * Return event listener setter method:
-         * 
-         * @param {Element|NodeList} el   DOM element or node list
-         * @param {String}           type Event type
-         * @param {Function}         fn   Event callback
+         * @type {Function} Return event listener setter method
          */
         on = (function () {
             // Random addEventListener function
             if (document.addEventListener) {
+                /**
+                 * Return event listener setter method:
+                 *
+                 * @param {Element|NodeList} el   DOM element or node list
+                 * @param {String}           type Event type
+                 * @param {Function}         fn   Event callback
+                 */
                 return function (el, type, fn) {
                     _arrayIterator(type, function (type) {
                         _attachToElement(el, function (el) {
@@ -108,7 +114,13 @@ window.$ = (function (window, document) {
                     });
                 };
             }
-            // IE event attachment
+            /**
+             * Return event listener setter method for IE
+             *
+             * @param {Element|NodeList} el   DOM element or node list
+             * @param {String}           type Event type
+             * @param {Function}         fn   Event callback
+             */
             return function (el, type, fn) {
                 _arrayIterator(type, function (type) {
                     _attachToElement(el, function (el) {
@@ -128,7 +140,7 @@ window.$ = (function (window, document) {
          * @return {Boolean}    Has class status
          */
         hasClass = function (el, cl) {
-            return !!(el.className && el.className.match(_getClassRegExp(cl)));
+            return (!!el.className && el.className.match(_getClassRegExp(cl)));
         },
 
         /**
@@ -178,6 +190,32 @@ window.$ = (function (window, document) {
                     }
                 });
             });
+        },
+
+        /**
+         * Get or set attribute on element
+         * 
+         * @param  {Element}               el    DOM element
+         * @param  {String}                attr  Attribute name
+         * @param  {String|Number|Boolean} value Attribute value to set
+         * @return {String}                      Actual attribute value
+         */
+        attr = function (el, attr, value) {
+            return (!value && el.getAttribute(attr)) || el.setAttribute(attr, value.toString());
+        },
+
+        /**
+         * Remove elements
+         * 
+         * @param  {Element|NodeList} el Dom element or node list to remove
+         * @return {Element|NodeList}    Last removed element or node list
+         */
+        remove = function (el) {
+            var rm = null;
+            _attachToElement(el, function (el) {
+                rm = el.parentNode && el.parentNode.removeChild(el);
+            });
+            return rm;
         };
 
     // Set public methods
@@ -186,6 +224,8 @@ window.$ = (function (window, document) {
     syndom.addClass    = addClass;
     syndom.removeClass = removeClass;
     syndom.toggleClass = toggleClass;
+    syndom.attr        = attr;
+    syndom.remove      = remove;
 
     return syndom;
 
