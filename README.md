@@ -10,6 +10,7 @@ Syndom ist eine JavaScript-Bibliothek für grundlegende DOM-Funktionen.
 - **selektieren** von Elementen
 - **Event-Bindung**
 - **Manipulatuion von CSS-Klassen**
+- **DOM**-Operationen
 
 Inspiriert von [salt.js](https://github.com/james2doyle/saltjs) was die Art der Selektierung angeht wurde die *syndom*-Variante abgewandelt, um bereits selektierte Elemente zu cachen und der Möglichkeit einen Kontext für ein Element anzugeben.
 
