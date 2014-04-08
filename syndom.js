@@ -195,13 +195,13 @@ window.$ = (function (window, document) {
         /**
          * Get or set attribute on element
          * 
-         * @param  {Element}               el    DOM element
-         * @param  {String}                attr  Attribute name
-         * @param  {String|Number|Boolean} value Attribute value to set
-         * @return {String}                      Actual attribute value
+         * @param  {Element} el    DOM element
+         * @param  {String}  attr  Attribute name
+         * @param  {String}  value Attribute value to set
+         * @return {String}        Actual attribute value
          */
         attr = function (el, attr, value) {
-            return (!value && el.getAttribute(attr)) || el.setAttribute(attr, value.toString());
+            return (!value && el.getAttribute(attr)) || el.setAttribute(attr, (value || '').toString());
         },
 
         /**

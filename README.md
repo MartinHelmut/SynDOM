@@ -247,14 +247,7 @@ var el = $('#myElement');
 $.attr(el, 'attrName', 'value');
 ```
 
-Zum setzen von Attributen werden *Strings*, *Zahlen* und *boolesche Werte* aktzeptiert:
-
-```javascript
-var el = $('#myElement');
-$.attr(el, 'attrName', 'value'); // => "value"
-$.attr(el, 'attrName', true);    // => "true"
-$.attr(el, 'attrName', 42);      // => "42"
-```
+Zum setzen von Attributen werden **nur Strings** aktzeptiert!
 
 ### Elemente löschen
 Mit *syndom* können ebenfalls Elemente gelöscht werden. Hierzu gibt es die ```remove()``` Methode:
