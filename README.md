@@ -42,7 +42,7 @@ Inspired by [salt.js](https://github.com/james2doyle/saltjs), the SynDOM variant
 - Safari
 - IE9+
 
-If you want to support **IE6-8** you need to include the IE support file, [download here](https://github.com/MartinHelmut/syndom/raw/master/demo/iesupport.js).
+If you want to support **IE6-8** you need to include the IE support file, [download here](http://gitlab.synbackend.com/synlight-internal-projects/syndom/raw/master/demo/iesupport.js) or use the one in the `demo` folder.
 
 ```html
 <!--[if lte IE 6]>
