@@ -1,60 +1,58 @@
-syndom v0.0.2
-=============
-* * *
+# SynDOM
 
-## Beschreibung
-Syndom ist eine JavaScript-Bibliothek für grundlegende DOM-Funktionen.
+## Contents
+
+* [Description](#description)
+  * [Features](#features)
+  * [Browser Support](#browser-support)
+* [Select DOM nodes](#select-dom-nodes)
+  * [ByID](#byid)
+  * [ByClassName](#byclassname)
+  * [ByName](#byname)
+  * [ByTagName](#bytagname)
+  * [Context](#context)
+* [Manipulate CSS classes](#manipulate-css-classes)
+  * [hasClass](#hasclass)
+  * [addClass](#addclass)
+  * [removeClass](#removeclass)
+  * [toggleClass](#toggleclass)
+* [DOM operations](#dom-operations)
+  * [Attributes](#attributes)
+  * [Remove](#remove)
+* [Event binding](#event-binding)
+
+## Description
+
+*SynDOM* is a JavaScript library for basic DOM operartions.
 
 ### Features
-- nur **659 Bytes** gzipped
-- **selektieren** von Elementen
-- **Event-Bindung**
-- **Manipulatuion von CSS-Klassen**
-- **DOM**-Operationen
 
-Inspiriert von [salt.js](https://github.com/james2doyle/saltjs) was die Art der Selektierung angeht wurde die *syndom*-Variante abgewandelt, um bereits selektierte Elemente zu cachen und der Möglichkeit einen Kontext für ein Element anzugeben.
+* less than **700 Bytes** gzipped
+* **select** DOM elements
+* **Event binding**
+* **Manipulating CSS classes**
+* **DOM** operations
+
+Inspired by [salt.js](https://github.com/james2doyle/saltjs), the SynDOM variant also caches the selected elements and and offers the possibility to set a element context.
 
 ### Browser Support
 - Chrome
 - Firefox
 - Opera
 - Safari
-- IE9+ (mit IE-Support-Datei auch IE6+)
+- IE9+
 
-## Anwendung
-Um *syndom* zu nutzen wird das Script am Ende der Seite eingebunden:
-
-```html
-<html>
-<head>
-    <title>Dokument</title>
-</head>
-<body>
-    Hallo Welt
-    <script type="text/javascript" src="syndom.js"></script>
-</body>
-</html>
-```
-
-Für **IE8 und kleiner** Support kann die support-Datei in den Kopf der Seite als *Conditional Comment* eingebunden werden:
+If you want to support **IE6-8** you need to include the IE support file, [download here](https://github.com/MartinHelmut/syndom/raw/master/demo/iesupport.js).
 
 ```html
-<html>
-<head>
-    <title>Dokument</title>
-    <!--[if lte IE 6]>
-        <script type="text/javascript" src="iesupport.js"></script>
-    <![endif]-->
-</head>
-<body>
-    Hallo Welt
-    <script type="text/javascript" src="syndom.js"></script>
-</body>
-</html>
+<!--[if lte IE 6]>
+    <script type="text/javascript" src="js/iesupport.js"></script>
+<![endif]-->
 ```
 
-## Elemente selektieren
-Elemente werden intern mit den JavaScript-Funktionen ```getElementById()```, ```getElementsByClassName()```, ```getElementsByName()``` und ```getElementsByTagName()``` selektiert. Es werden immer **native JavaScript-Objekte wiedergegeben**. Diese werden zudem von *syndom* **gecached** so das nicht immer wieder das DOM durchlaufen werden muss.
+## Select DOM nodes
+
+Internaly nodes are selected through the JavaScript functions `getElementById()`, `getElementsByClassName()`, `getElementsByName()` and `getElementsByTagName()`. The return value is always an **native JavaScript object** (Node or NodeList). This will also be **cached** by SynDOM.
 
 ### ByID
 
@@ -80,46 +78,49 @@ $('@name');
 $('element');
 ```
 
-### Mit Kontext
-Elemente die selektiert werden sollen können sich in einem Kontext befinden. Der Standardkontext ist *document*. Ein Beispielkontext (in CSS Schreibweiße) könnte ```#wrapper .rows``` sein. Der Kontext ist immer ein **bereits selektiertes Element**:
+### Context
+
+Elements to be selected may be located in a context (parent Node). The default context is *document*. An example of context (in CSS notation) could be `#wrapper .rows`. The context is always an **already selected element**:
 
 ```javascript
-// Kontext wählen
+// Get context
 var myContext = $('#wrapper');
-// Elemente aus Kontext
-$('.rows', myContext);
+// Node from context
+var rows = $('.rows', myContext);
 ```
 
-## CSS-Klassen manipulieren
-Zum Cross-Brwoser manipulieren von CSS-Klassen gibt es folgende Methoden aus dem *syndom*-Objekt:
+## Manipulate CSS classes
+
+To manipulate CSS classes cross browser use the following methods from the SynDOM object:
 
 ### hasClass
-Die Methode ```hasClass()``` prüft ob eine bestimmte CSS-Klasse an **einem** Element gesetzt ist. Die Methode wird wie folgt angewendet:
+
+The `hasClass()` method checks if a certain CSS class is set on an **single** DOM element.
 
 ```javascript
 var el = $('#element');
-if ($.hasClass(el, 'class')) {
+if ($.hasClass(el, 'classname')) {
     // ...
 }
 ```
 
 ### addClass
-Mit ```addClass()``` kann eine oder mehrere Klassen an ein oder mehrere Elemente gesetzt werden. Grundfunktion:
+
+With `addClass()` one or more classes can be set to one or more elements.
 
 ```javascript
-// Klasse an ein Element setzen
+// Set class to one Node
 var el = $('#element');
 $.addClass(el, 'class1');
 
-// Klasse an NodeList setzen
+// Set class to NodeList
 var el = $('.elements');
 $.addClass(el, 'class2');
 ```
 
-Zum vergeben von einer Klasse an **mehrere unterschiedliche Elemente** kann ein Array mit einer Elementauswahl übergeben werden:
+To assign a class to **several different elements**, an array is passed with element selectors.
 
 ```javascript
-// Klasse an unterschiedliche Elemente setzen
 var elList = [
     $('#wrapper'),
     $('.someBoxes'),
@@ -128,7 +129,7 @@ var elList = [
 $.addClass(elList, 'class');
 ```
 
-Außerdem können **mehrere Klassen** an ein Element auf einmal vergeben werden:
+In addition, **several classes** can be assigned to an element at a time.
 
 ```javascript
 var el = $('#box');
@@ -138,7 +139,7 @@ $.addClass(el, [
 ]);
 ```
 
-Diese Varianten können auch **kombiniert** werden, so das alle Elemente alle Klassen erhalten die definiert sind:
+These variants can also be **combined**, so that all the elements obtained all the classes defined.
 
 ```javascript
 var elList = [
@@ -153,19 +154,20 @@ $.addClass(elList, [
 ```
 
 ### removeClass
-Per ```removeClass()``` können eine oder mehrere Klassen von einem oder mehreren Elementen entfernt werden:
+
+By `removeClass()` one or more classes of one or more elements are removed.
 
 ```javascript
-// Klasse von ein Element entfernen
+// Remove class from Node
 var el = $('#box');
 $.removeClass(el, 'uselessClass');
 
-// Klasse von NodeList entfernen
+// Remove class from NodeList
 var el = $('@namedElements');
 $.addClass(el, 'class');
 ```
 
-Um Klassen von **mehreren unterschiedlichen Elementen** zu entfernen wird ein Array mit den jeweiligen Elementen übergeben:
+To remove classes from **several different Nodes**, pass an array with the respective elements.
 
 ```javascript
 var elList = [
@@ -175,7 +177,7 @@ var elList = [
 $.removeClass(elList, 'class');
 ```
 
-Genau wie bei *addClass* können auch bei *removeClass* **mehrere Klassen** entfernt werden:
+Same as `addClass()` **multiple classes** can also be removed in `removeClass()`.
 
 ```javascript
 var el = $('article')[0];
@@ -185,7 +187,7 @@ $.removeClass(el, [
 ]);
 ```
 
-Und hier die Kombination für **unterschiedliche Elemente mit mehreren Klassen**:
+And here is the combination of different elements with multiple classes.
 
 ```javascript
 var elList = [
@@ -199,14 +201,15 @@ $.removeClass(elList, [
 ```
 
 ### toggleClass
-Die ```toggleClass()``` Methode **wechselt CSS-Klassen** aus. Sind die Klassen vorhanden werden sie entfernt, existieren sie nicht werden sie hinzugefügt. Ein einfacher Aufruf könnte so aussehen:
+
+The `toggleClass()` method toggle CSS classes: Are the classes provided they are removed, if there not exists they are added.
 
 ```javascript
 var el = $('#information');
 $.toggleClass(el, 'open');
 ```
 
-Wie *addClass* und *removeClass* können **mehrere Klassen und/oder Elemente** als Array übergeben werden um mehrere Klassen und Elemente zu toggeln.
+Like `addClass()` and `removeClass()` multiple classes and / or elements are passed as an array to toggle to several classes and elements.
 
 ```javascript
 var el = $('#information'),
@@ -215,49 +218,53 @@ var el = $('#information'),
         $('.box')
     ];
 
-// Mehrere Klassen toggeln
+// Toggle multiple classes
 $.toggleClass(el, [
     'class1',
     'class2'
 ]);
 
-// Mehrere Elemente toggeln
+// Toggle on multiple elements
 $.toggleClass(elList, 'class');
 
-// Kombination
+// Combination
 $.toggleClass(elList, [
     'class1',
     'class2'
 ]);
 ```
 
-## DOM-Operationen
-### Attribute bearbeiten
-Mit *syndom* können Attribute abgefragt und gesetzt werden, dazu wird die Methode ```attr()``` genutzt aus dem syndom-Objekt. Zum abfragen eines Attributes **eines** Elementes wird nur der Attributname übergeben:
+## DOM operations
+
+### Attributes
+
+With SynDOM attributes can be get and set, use the SynDOM method `attr()` for this purpose. To **retrieve an attribute** of an element, only the attribute name is passed.
 
 ```javascript
 var el = $('#myElement');
 var value = $.attr(el, 'attrName');
 ```
 
-Zum **setzen eines Attributes** wird ein zweiter Wert, der Inhalt des Attributes übergeben:
+To **set an attribute**, a second value, the content of the attribute is passed.
 
 ```javascript
 var el = $('#myElement');
 $.attr(el, 'attrName', 'value');
 ```
 
-Zum setzen von Attributen werden **nur Strings** aktzeptiert!
+Only strings are acceptable to set attribute values!
 
-### Elemente löschen
-Mit *syndom* können ebenfalls Elemente gelöscht werden. Hierzu gibt es die ```remove()``` Methode:
+### Remove
+
+With SynDOM elements may also be deleted. For this purpose, there is the `remove()` method.
 
 ```javascript
 var el = $('#myElement');
 $.remove(el);
 ```
 
-Der **Rückgabewert** ist das gelöschte Element. Es können ebenfalls Node-Listen und Arrays mit zu löschenden Elementen übergeben werden:
+The **return value** is the deleted Node. There can also be passed NodeLists and Arrays with elements to remove.
+
 
 ```javascript
 var elList = [
@@ -270,10 +277,12 @@ $.remove(elList);
 $.remove(el);
 ```
 
-Der **Rückgabewert** ist in dem Fall das letzte gelöschte Element.
+The **return value** is the last deleted element.
 
-## Event-Bindung
-Mit *syndom* können **Cross-Browser Events** per ```on()``` Methode vergeben werden, mit flexibler Vergabe der Events an Elemente. Dabei wird das oder die Elemente übergeben, das Event und eine Callback-Funktion die das Event-Objekt übergeben bekommt. Zum binden eines klick-Events:
+## Event binding
+
+With SynDOM **cross browser events** can be assigned via the `on()` method, with flexible assignment of events to elements. You can pass one or multiple elements, the event name and a callback function.
+
 
 ```javascript
 var el = $('#click-me');
@@ -282,7 +291,7 @@ $.on(el, 'click', function (event) {
 });
 ```
 
-Zum binden eines Events an **mehrere Elemente** (*NodeList*):
+Bind multiple elements (NodeList):
 
 ```javascript
 var allLinks = $('a');
@@ -291,7 +300,7 @@ $.on(allLinks, 'hover', function (event) {
 });
 ```
 
-Für **mehrere unterschiedliche Elemente** kann ein Array übergeben werden:
+Bind different Nodes by array.
 
 ```javascript
 var elList = [
@@ -304,7 +313,7 @@ $.on(elList, 'focus', function (event) {
 });
 ```
 
-Zudem können mehrere Events auf einmal gebunden werden in dem für das Event ein Array übergeben wird:
+In addition, several events can be bound at once as array.
 
 ```javascript
 var inputs = $('input');
