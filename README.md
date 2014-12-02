@@ -21,6 +21,9 @@
   * [Remove](#remove)
 * [Event binding](#event-binding)
 * [Animation](#animation)
+  * [Animation Options](#animation-options)
+  * [Animation Callback](#animation-callback)
+  * [Multiple Animations](#multiple-animations)
 
 ## Description
 
