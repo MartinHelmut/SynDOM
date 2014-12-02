@@ -20,6 +20,7 @@
   * [Attributes](#attributes)
   * [Remove](#remove)
 * [Event binding](#event-binding)
+* [Animation](#animation)
 
 ## Description
 
@@ -32,6 +33,7 @@
 * **Event binding**
 * **Manipulating CSS classes**
 * **DOM** operations
+* **Animate** DOM elements with requestAnimationFrame (and Fallback)
 
 Inspired by [salt.js](https://github.com/james2doyle/saltjs), the SynDOM variant also caches the selected elements and and offers the possibility to set a element context.
 
@@ -287,7 +289,7 @@ With SynDOM **cross browser events** can be assigned via the `on()` method, with
 ```javascript
 var el = $('#click-me');
 $.on(el, 'click', function (event) {
-    //
+    // ...
 });
 ```
 
@@ -296,7 +298,7 @@ Bind multiple elements (NodeList):
 ```javascript
 var allLinks = $('a');
 $.on(allLinks, 'hover', function (event) {
-    //
+    // ...
 });
 ```
 
@@ -309,7 +311,7 @@ var elList = [
     $('select')
 ];
 $.on(elList, 'focus', function (event) {
-    //
+    // ...
 });
 ```
 
@@ -320,4 +322,105 @@ var inputs = $('input');
 $.on(inputs, ['focus', 'blur'], function (event) {
     $.toggleClass(event.target, 'focused');
 });
+```
+
+## Animation
+
+You can animate elements by `animate()`. The animation itself is in you hands, SynDOM only provides a easy way to manage your animation. Here a basic example:
+
+```js
+$.animate(
+    {
+        time: 3000,
+        node: $('#element'),
+        run: function (node, rate) {
+            // ...
+        }
+    }
+);
+```
+
+### Animation Options
+
+The **time** option is a time in milliseconds, how long the animation should run. Node property **node** is the node to animate, all types are accepted, even NodeList, because you handel it.
+
+### Animation Callback
+
+The `run` callback defines what happens on every animation step. Passed arguments are `node` and `rate`.
+
+**node**
+
+The node object is the given *Node* or *NodeList*, so you need to handle multiple elements.
+
+**rate**
+
+The rate is the actual animation point, as **float between 0 and 1**.
+
+### Multiple Animations
+
+If you want animate more than one thing you can add more animations. They are executed after the previous is executed. Just use an array:
+
+```js
+$.animate([
+    {
+        time: 3000,
+        node: $('#element1'),
+        run: function (node, rate) {
+            // ...
+        }
+    },
+    {
+        time: 1000,
+        node: $('#element2'),
+        run: function (node, rate) {
+            // ...
+        }
+    }
+]);
+```
+
+Also, you can drop the `node` property on the second (or later) animation if you want to use the same object:
+
+```js
+$.animate([
+    {
+        time: 3000,
+        node: $('#element'),
+        run: function (node, rate) {
+            // ...
+        }
+    },
+    {
+        time: 1000,
+        run: function (node, rate) {
+            // node is the same like in the first animation
+            // ...
+        }
+    }
+]);
+```
+
+So, it is possible to animate multiple elements with multiple steps:
+
+```js
+$.animate([
+    {
+        time: 3000,
+        node: $('#element1'),
+        run: function (node, rate) { /* ... */ }
+    },
+    {
+        time: 1000,
+        run: function (node, rate) { /* ... */ }
+    },
+    {
+        time: 3000,
+        node: $('#element2'),
+        run: function (node, rate) { /* ... */ }
+    },
+    {
+        time: 1000,
+        run: function (node, rate) { /* ... */ }
+    }
+]);
 ```

@@ -30,4 +30,21 @@
 		'class3'
 	]);
 
+	$.animate([
+		{
+			time: 3000,
+			node: $('span', $('#progress'))[0],
+			run: function (node, rate) {
+				node.style.width = (rate * 100) + '%';
+			}
+		},
+		{
+			time: 2000,
+			// node: $('span', $('#progress'))[0], // Optional
+			run: function (node, rate) {
+				node.style.height = (rate * 100) + '%';
+			}
+		}
+	]);
+
 }());

@@ -9,18 +9,6 @@
 (function (window, document) {
     'use strict';
 
-    if(!Array.isArray) {
-        /**
-         * Check if object is array
-         * 
-         * @param  {Mixed}   arg Object to test
-         * @return {Boolean}     Is Array result
-         */
-        Array.isArray = function(arg) {
-            return Object.prototype.toString.call(arg) === '[object Array]';
-        };
-    }
-
     if (!document.getElementsByClassName) {
         (function () {
             /**

@@ -13,6 +13,54 @@
 window.$ = (function (window, document) {
     'use strict';
 
+    // isArray fallback
+    if(!Array.isArray) {
+        /**
+         * Check if object is array
+         * 
+         * @param  {Mixed}   arg Object to test
+         * @return {Boolean}     Is Array result
+         */
+        Array.isArray = function(arg) {
+            return Object.prototype.toString.call(arg) === '[object Array]';
+        };
+    }
+
+    // Adapted from https://gist.github.com/paulirish/1579671 which derived from 
+    // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+    // requestAnimationFrame polyfill by Erik Möller.
+    // Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
+    // MIT license
+    (function () {
+        var vendors = ['ms', 'moz', 'webkit', 'o'],
+            vp,
+            lastTime,
+            i = 0;
+        if (!Date.now) {
+            Date.now = function () {
+                return new Date().getTime();
+            };
+        }
+
+        for (i = vendors.length - 1; i >= 0 && !window.requestAnimationFrame; i -= 1) {
+            vp = vendors[i];
+            window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame = (window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame']);
+        }
+        if (!window.requestAnimationFrame || !window.cancelAnimationFrame) {
+            lastTime = 0;
+            window.requestAnimationFrame = function (callback) {
+                var now = Date.now(),
+                    nextTime = Math.max(lastTime + 16, now);
+                return setTimeout(function () {
+                    callback(lastTime = nextTime);
+                }, nextTime - now);
+            };
+            window.cancelAnimationFrame = clearTimeout;
+        }
+    }());
+
     /**
      * Attach function on elements
      * 
@@ -216,6 +264,49 @@ window.$ = (function (window, document) {
                 rm = el.parentNode && el.parentNode.removeChild(el);
             });
             return rm;
+        },
+
+        /**
+         * Animate object
+         * 
+         * @param {Array|Object} list Object or array with setting objects
+         */
+        animate = function (list) {
+            var item,
+                duration,
+                end = 0,
+                node,
+                /**
+                 * Single animation step
+                 */
+                step = function () {
+                    var current   = +new Date(),
+                        remaining = end - current,
+                        rate;
+                    if (remaining < 60) {
+                        if (item) {
+                            item.run(node || item.node, 1); // 1 = progress is at 100%
+                        }
+                        item = list.shift(); // get the next item
+                        node = item.node || node;
+                        if (item) {
+                            duration = item.time;
+                            end = current + duration;
+                            item.run(node || item.node, 0); // 0 = progress is at 0%
+                        } else {
+                            return;
+                        }
+                    } else {
+                        rate = 1 - remaining / duration;
+                        item.run(node || item.node, rate);
+                    }
+                    window.requestAnimationFrame(step);
+                };
+            if (!Array.isArray(list)) {
+                list = [list];
+            }
+            // Start the animation
+            step();
         };
 
     // Set public methods
@@ -226,6 +317,7 @@ window.$ = (function (window, document) {
     syndom.toggleClass = toggleClass;
     syndom.attr        = attr;
     syndom.remove      = remove;
+    syndom.animate     = animate;
 
     return syndom;
 
