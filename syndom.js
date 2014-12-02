@@ -14,14 +14,14 @@ window.$ = (function (window, document) {
     'use strict';
 
     // isArray fallback
-    if(!Array.isArray) {
+    if (!Array.isArray) {
         /**
          * Check if object is array
          * 
          * @param  {Mixed}   arg Object to test
          * @return {Boolean}     Is Array result
          */
-        Array.isArray = function(arg) {
+        Array.isArray = function (arg) {
             return Object.prototype.toString.call(arg) === '[object Array]';
         };
     }
@@ -285,14 +285,18 @@ window.$ = (function (window, document) {
                         rate;
                     if (remaining < 60) {
                         if (item) {
-                            item.run(node || item.node, 1); // 1 = progress is at 100%
+                            node = node || item.node;
+                            item.run(node, 1); // 1 = progress is at 100%
+                            if (!!item.callback && typeof item.callback === 'function') {
+                                item.callback(node);
+                            }
                         }
                         item = list.shift(); // get the next item
-                        node = item.node || node;
                         if (item) {
+                            node = item.node || node;
                             duration = item.time;
                             end = current + duration;
-                            item.run(node || item.node, 0); // 0 = progress is at 0%
+                            item.run(node, 0); // 0 = progress is at 0%
                         } else {
                             return;
                         }

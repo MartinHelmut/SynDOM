@@ -359,6 +359,23 @@ The node object is the given *Node* or *NodeList*, you need to handle multiple e
 
 The rate is the actual animation point, as **float between 0 and 1**.
 
+Also there is a real `callback` property you can define. It fires after the animation finishes. Also the `node` object is given.
+
+```js
+$.animate(
+    {
+        time: 3000,
+        node: $('#element'),
+        run: function (node, rate) {
+            // ...
+        },
+        callback: function (node) {
+            // ...
+        }
+    }
+);
+```
+
 ### Multiple Animations
 
 If you want animate more than one thing you can add more animations. They are executed after the previous is executed. Just use an array:
