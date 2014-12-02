@@ -3,7 +3,7 @@
 /**
  * Synlight DOM module
  *
- * @version 0.0.3
+ * @version 1.0.0
  * @licence Apache Licence 2.0
  * @author  Martin Helmut Fieber <info@martin-fieber.de>
  * 
