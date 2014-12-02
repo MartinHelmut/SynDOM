@@ -329,7 +329,7 @@ $.on(inputs, ['focus', 'blur'], function (event) {
 
 ## Animation
 
-You can animate elements by `animate()`. The animation itself is in you hands, SynDOM only provides a easy way to manage your animation. Here a basic example:
+You can animate elements by `animate()`. The animation itself is in your hands, SynDOM only provides a easy way to manage your animations. Here is a basic example:
 
 ```js
 $.animate(
@@ -345,7 +345,7 @@ $.animate(
 
 ### Animation Options
 
-The **time** option is a time in milliseconds, how long the animation should run. Node property **node** is the node to animate, all types are accepted, even NodeList, because you handel it.
+The **time** option is a time in milliseconds, how long the animation should run. Node property **node** is the node to animate, all types are accepted, even NodeList, because you handle it.
 
 ### Animation Callback
 
@@ -353,7 +353,7 @@ The `run` callback defines what happens on every animation step. Passed argument
 
 **node**
 
-The node object is the given *Node* or *NodeList*, so you need to handle multiple elements.
+The node object is the given *Node* or *NodeList*, you need to handle multiple elements.
 
 **rate**
 
@@ -403,7 +403,7 @@ $.animate([
 ]);
 ```
 
-So, it is possible to animate multiple elements with multiple steps:
+It is also possible to animate multiple elements with multiple steps:
 
 ```js
 $.animate([
