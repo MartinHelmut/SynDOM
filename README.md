@@ -1,7 +1,5 @@
 # SynDOM
 
-![Build status on master](http://gitlab.synbackend.com/ci/projects/2/status.png?ref=master)
-
 ## Contents
 
 * [Description](#description)
