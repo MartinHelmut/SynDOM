@@ -674,7 +674,3 @@ You can run the *syndom* tests on your own. If you run the tests an code coverag
 sudo npm install
 grunt
 ```
-
-## Author
-
-* [Martin Helmut Fieber](/u/MartinHelmut)
