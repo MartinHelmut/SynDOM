@@ -1,0 +1,29 @@
+{
+  "name": "syndom",
+  "main": "syndom.js",
+  "version": "1.0.7",
+  "authors": [
+    "Martin Helmut Fieber <info@martin-fieber.de>"
+  ],
+  "description": "syndom is a JavaScript library for basic DOM operartions, event handling, basic animations (fast through requestAnimationFrame), ajax and simple module loading (without dependencies).",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "synlight",
+    "syndom",
+    "selector",
+    "animation",
+    "events"
+  ],
+  "license": "MIT",
+  "homepage": "http://synlight.net/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

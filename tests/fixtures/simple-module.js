@@ -1,0 +1,1 @@
+var simpleModuleVar = true;
