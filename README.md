@@ -1,5 +1,8 @@
 # SynDOM
 
+**WARNING** This repo is deprecated and unsupported. Don't use any of this
+in your application!
+
 ## Contents
 
 * [Description](#description)
